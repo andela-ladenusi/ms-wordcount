@@ -8,6 +8,8 @@ module.exports = (robot) ->
 	robot.router.post '/hubot', (req, res) ->
 		# room = req.params.room
 		room = "C02SBK0F2"
-    message = req.body.message
-    robot.messageRoom room, message
+		user = {}
+		user.room = room
+    message = "I just deployed to Heroku"
+    robot.send(user, message)
     res.send "OK! You're working!"
