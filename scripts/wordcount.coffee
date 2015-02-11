@@ -18,12 +18,13 @@
   querystring = require('querystring')
 
 module.exports = (robot) ->
-  robot.router.get "/hubot", (req, res) ->
-    query = querystring.parse(req._parsedUrl.query)
-    message = query.message
+  robot.router.post "/hubot", (req, res) ->
+    # query = querystring.parse(req._parsedUrl.query)
+    message = req.body.message
 
     user = {}
-    user.room = query.room if query.room
+    # user.room = query.room if query.room
+    user.room = "C02SBK0F2"
 
     robot.send(user, message)
     res.end "said #{message}"
