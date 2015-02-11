@@ -5,8 +5,8 @@ module.exports = (robot) ->
 	# 		msg.reply "Bring your plates"
 	# 	else
 	# 		msg.reply "Can't #{msgType} you all"
-	robot.router.post '/hubot/:room', (req, res) ->
-		room = req.params.room
-    message = req.body.message
-    robot.messageRoom room, message
-    res.end()
+	robot.router.post '/hubot', (req, res) ->
+		# room = req.params.room
+  #   message = req.body.message
+  #   robot.messageRoom room, message
+    res.send "OK! You're working!"
