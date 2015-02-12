@@ -31,12 +31,13 @@
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
-		console.log req.body
-		message = JSON.parse req.body.payload or 'Could not get data'
+		message = req.body
 		user = {}
 		user.room = req.params.room
 		robot.send user, message
 		res.end '\nThanks for your entries\n'
+
+		robot.logger.info "this is req body #{message}"
 
   robot.router.post "/hubot/say", (req, res) ->
     body = req.body
