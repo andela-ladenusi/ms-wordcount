@@ -31,13 +31,36 @@
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
-		message = req.body
+		allUsers = JSON.parse req.body.allEntries
+		# message = "Testing payload"
+		
+		total = 0
+		wordCounter = (post) ->
+		  return  unless post
+		  
+		  # Remove all spaces and linebreaks and replace with commas then split the post
+		  post = post.replace(/\s+/g, " ").split(" ")
+		  post.length
+
+		for user in allUsers
+			sum = 0
+			# console.log user unless !user.entries.length
+			user.entries.map (entry) ->
+				sum += wordCounter entry
+			console.log '\n' + user.uid + ': ' + sum
+			total += sum
+
+		message = "The total wordcount for Andela users today is #{total} words."
 		user = {}
 		user.room = req.params.room
 		robot.send user, message
+		console.log 'Total = ' + total
+			
+		
 		res.end '\nThanks for your entries\n'
 
-		robot.logger.info "this is req body #{message}"
+		# robot.logger.info "this is req body #{message}"
+		# robot.logger.info allUsers
 
   robot.router.post "/hubot/say", (req, res) ->
     body = req.body
