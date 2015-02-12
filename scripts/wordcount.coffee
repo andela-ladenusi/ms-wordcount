@@ -32,7 +32,7 @@
 module.exports = (robot) ->
   robot.router.post "/hubot/say", (req, res) ->
     body = req.body
-    room = body.room
+    room = "#general"
     message = body.message
 
     robot.logger.info "Message '#{message}' received for room #{room}"
@@ -42,9 +42,8 @@ module.exports = (robot) ->
     envelope.user.room = envelope.room = room if room
     envelope.user.type = body.type or 'groupchat'
 
-    # if message
-    #   robot.send envelope, message
-    res.send room + message
+    if message
+      robot.send envelope, message
 
     res.writeHead 200, {'Content-Type': 'text/plain'}
     res.end 'Thanks\n'
