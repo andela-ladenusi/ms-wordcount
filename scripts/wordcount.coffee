@@ -31,9 +31,10 @@
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
+		message = JSON.parse req.body.payload
 		user = {}
 		user.room = req.params.room
-		robot.send user, "Received entries via POST from Andelife"
+		robot.send user, message
 		res.end '\nThanks for your entries\n'
 
   robot.router.post "/hubot/say", (req, res) ->
