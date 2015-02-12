@@ -30,9 +30,15 @@
 #     res.end "said #{message}"
 
 module.exports = (robot) ->
+	robot.router.post "/entries/:room", (req, res) ->
+		user = {}
+		user.room = req.params.room
+		robot.send user, "Received entries via POST from Andelife"
+		res.end '\nThanks for your entries\n'
+
   robot.router.post "/hubot/say", (req, res) ->
     body = req.body
-    room = "#general"
+    room = body.room
     message = body.message
 
     robot.logger.info "Message '#{message}' received for room #{room}"
