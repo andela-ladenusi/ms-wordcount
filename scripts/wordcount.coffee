@@ -31,7 +31,8 @@
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
-		message = req.body
+		console.log req.body
+		message = JSON.parse req.body.payload or 'Could not get data'
 		user = {}
 		user.room = req.params.room
 		robot.send user, message
