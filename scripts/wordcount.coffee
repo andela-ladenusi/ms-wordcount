@@ -31,7 +31,7 @@
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
-		message = JSON.parse req.body.payload
+		message = req.body
 		user = {}
 		user.room = req.params.room
 		robot.send user, message
