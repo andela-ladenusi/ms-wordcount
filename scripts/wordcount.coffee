@@ -42,9 +42,9 @@ module.exports = (robot) ->
     envelope.user.room = envelope.room = room if room
     envelope.user.type = body.type or 'groupchat'
 
-    if message
-      robot.send envelope, message
+    # if message
+    #   robot.send envelope, message
+    res.send room + message
 
     res.writeHead 200, {'Content-Type': 'text/plain'}
     res.end 'Thanks\n'
-    
