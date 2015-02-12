@@ -15,16 +15,36 @@
 #     robot.messageRoom room, "I have a secret: #{secret}"
 #     res.send "OK! You're working!"
 
-  querystring = require('querystring')
+#   querystring = require('querystring')
+
+# module.exports = (robot) ->
+#   robot.router.post "/hubot", (req, res) ->
+#     # query = querystring.parse(req._parsedUrl.query)
+#     message = req.body.message
+
+#     user = {}
+#     # user.room = query.room if query.room
+#     user.room = "C02SBK0F2"
+
+#     robot.send(user, message)
+#     res.end "said #{message}"
 
 module.exports = (robot) ->
-  robot.router.post "/hubot", (req, res) ->
-    # query = querystring.parse(req._parsedUrl.query)
-    message = req.body.message
+  robot.router.post "/hubot/say", (req, res) ->
+    body = req.body
+    room = body.room
+    message = body.message
 
-    user = {}
-    # user.room = query.room if query.room
-    user.room = "C02SBK0F2"
+    robot.logger.info "Message '#{message}' received for room #{room}"
 
-    robot.send(user, message)
-    res.end "said #{message}"
+    envelope = robot.brain.userForId 'broadcast'
+    envelope.user = {}
+    envelope.user.room = envelope.room = room if room
+    envelope.user.type = body.type or 'groupchat'
+
+    if message
+      robot.send envelope, message
+
+    res.writeHead 200, {'Content-Type': 'text/plain'}
+    res.end 'Thanks\n'
+    
