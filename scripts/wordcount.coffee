@@ -5,29 +5,6 @@
 # 	# 		msg.reply "Bring your plates"
 # 	# 	else
 # 	# 		msg.reply "Can't #{msgType} you all"
-# 	robot.router.post '/hubot/:room', (req, res) ->
-# 		# room = req.params.room
-# 		# room = "C02SBK0F2"
-# 		room   = req.params.room
-#     data   = JSON.parse req.body.payload
-#     secret = data.secret
-
-#     robot.messageRoom room, "I have a secret: #{secret}"
-#     res.send "OK! You're working!"
-
-#   querystring = require('querystring')
-
-# module.exports = (robot) ->
-#   robot.router.post "/hubot", (req, res) ->
-#     # query = querystring.parse(req._parsedUrl.query)
-#     message = req.body.message
-
-#     user = {}
-#     # user.room = query.room if query.room
-#     user.room = "C02SBK0F2"
-
-#     robot.send(user, message)
-#     res.end "said #{message}"
 
 module.exports = (robot) ->
 	robot.router.post "/entries/:room", (req, res) ->
